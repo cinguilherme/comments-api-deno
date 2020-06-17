@@ -6,4 +6,4 @@ WORKDIR /app
 
 COPY . .
 
-CMD [ "run", "--unstable", "--allow-net", "--allow-env", "--allow-read", "src/app.ts" ]
+CMD [ "run", "--unstable", "--allow-net", "--allow-env", "--allow-read", "src/server.ts" ]
