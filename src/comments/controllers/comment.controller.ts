@@ -4,6 +4,8 @@ import {
   getCommentById
 } from "../models/comment.ts";
 
+import { getRedisConnection } from "../cache/redisConfig.ts";
+
 const getCommentsForContent = async ({ params, response }: {
   params: { id: string };
   response: any;
@@ -19,7 +21,16 @@ const getById = async ({ params, response }: {
   response: any;
 }) => {
   response.status = 200;
-  response.body = await getCommentById(params.id);
+  let redis = await getRedisConnection();
+  const res = await redis.get(`${params.id}`);
+
+  if (res) {
+    response.body = JSON.parse(res);
+  } else {
+    const val = await getCommentById(params.id);
+    redis.set(`${params.id}`, JSON.stringify(val));
+    response.body = val;
+  }
 };
 
 const postComment = async ({ request, response }: {
