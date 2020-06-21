@@ -17,21 +17,20 @@ services:
     command: redis-server --requirepass Redis2019!
     ports:
       - "6379:6379"
-
-  api:
-    build: .
-    restart: always
-    depends_on:
-      - db
-    volumes:
-      - ./:/app
-    ports:
-      - 3000:3000
-    environment:
-      - HOST=0.0.0.0
-      - PORT=3000
-      - DB_HOST=db # this should be identical to the database service name
-      - DB_USER=root
-      - DB_DATABASE=commentsDb
-      - DB_PASSWORD=strongDbPass
-      - TOKEN_SECRET=QA3GCPvnNO3e6x29dFfzbvIlP8pRNwif # don't forget to change this
+  # api:
+  #   build: .
+  #   restart: always
+  #   depends_on:
+  #     - db
+  #   volumes:
+  #     - ./:/app
+  #   ports:
+  #     - 3000:3000
+  #   environment:
+  #     - HOST=0.0.0.0
+  #     - PORT=3000
+  #     - DB_HOST=db # this should be identical to the database service name
+  #     - DB_USER=root
+  #     - DB_DATABASE=commentsDb
+  #     - DB_PASSWORD=strongDbPass
+  #     - TOKEN_SECRET=QA3GCPvnNO3e6x29dFfzbvIlP8pRNwif # don't forget to change this
